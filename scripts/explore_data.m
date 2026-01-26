@@ -36,16 +36,6 @@ if exist('IMU_0', 'var')
     
     fprintf('Dimensioni: %d righe x %d colonne\n', size(imu, 1), size(imu, 2));
     
-    % Interpretazione delle colonne (da verificare)
-    % Col 1: Counter/Index
-    % Col 2: TimeUS
-    % Col 3: ?
-    % Col 4-6: GyrX, GyrY, GyrZ (rad/s)
-    % Col 7-9: AccX, AccY, AccZ (m/s²)
-    % Col 10-11: ?
-    % Col 12: Temperatura
-    % Col 13-16: ?
-    
     % Estrai timestamp (colonna 2)
     time_us = imu(:, 2);
     time_s = time_us / 1e6;

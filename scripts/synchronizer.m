@@ -2,7 +2,7 @@ function Data = synchronizer(input_path, Fs)
     load(input_path);
     num_motors = 6;
     
-    %% FILTERING
+    %% FILTRAGGIO
     
     [IMU_0,IMU_1,IMU_2] = compareN(IMU_0,IMU_1,IMU_2);
     [XKF1_0,XKF1_1] = compareN(XKF1_0,XKF1_1);
@@ -60,7 +60,7 @@ function Data = synchronizer(input_path, Fs)
         Time.(sprintf('ESC%d', k-1)) = seconds(ESC_all{k}(:,2)/1e6);
     end
     
-    %% SYNCHRONIZE ZOH - con synchronize()
+    %% SINCRONIZZAZIONE ZOH - con synchronize()
     
     % IMU
     IMU_tt = timetable(Time.IMU, IMU.GYR(:,1), IMU.GYR(:,2), IMU.GYR(:,3), IMU.ACC(:,1), IMU.ACC(:,2), IMU.ACC(:,3), 'VariableNames', {'IMU_GYR_X','IMU_GYR_Y','IMU_GYR_Z','IMU_ACC_X','IMU_ACC_Y','IMU_ACC_Z'});
@@ -124,7 +124,7 @@ function Data = synchronizer(input_path, Fs)
     
     VIBE_SYNC.ACC = [tt_resampled.VIBE_ACC_X, tt_resampled.VIBE_ACC_Y, tt_resampled.VIBE_ACC_Z];
     
-    %% CUT TAKE OFF AND LANDING
+    %% TAGLIO FASE DI DECOLLO E ATTERRAGGIO
     
     syncStructs = {IMU_SYNC, ESC_SYNC, ATTITUDE_SYNC, XKF1_SYNC, VIBE_SYNC};
     
@@ -167,7 +167,7 @@ function Data = synchronizer(input_path, Fs)
     XKF1_SYNC = syncStructs{4};
     VIBE_SYNC = syncStructs{5};
     
-    %% SAVE
+    %% SALVATAGGIO
     
     Data.IMU.GYR = IMU_SYNC.GYR;
     Data.IMU.ACC = IMU_SYNC.ACC;
