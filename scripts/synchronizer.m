@@ -123,6 +123,8 @@ function Data = synchronizer(input_path, Fs)
     XKF1_SYNC.VD = tt_resampled.XKF1_VD;
     
     VIBE_SYNC.ACC = [tt_resampled.VIBE_ACC_X, tt_resampled.VIBE_ACC_Y, tt_resampled.VIBE_ACC_Z];
+
+    time_sync = tt_resampled.Time;
     
     %% TAGLIO FASE DI DECOLLO E ATTERRAGGIO
     
@@ -137,6 +139,7 @@ function Data = synchronizer(input_path, Fs)
         end
     end
     PWM_sync(idxcut1, :) = [];
+    time_sync(idxcut1) = [];
     
     % CUT 2: Primi 2 secondi
     idxcut2 = 1:min(2*Fs, size(PWM_sync, 1));
@@ -147,6 +150,7 @@ function Data = synchronizer(input_path, Fs)
         end
     end
     PWM_sync(idxcut2, :) = [];
+    time_sync(idxcut2) = [];
     
     % CUT 3: Ultimi 2 secondi
     n_rows = size(PWM_sync, 1);
@@ -159,6 +163,7 @@ function Data = synchronizer(input_path, Fs)
             end
         end
         PWM_sync(idxcut3, :) = [];
+        time_sync(idxcut2) = [];
     end
     
     IMU_SYNC = syncStructs{1};
@@ -168,6 +173,7 @@ function Data = synchronizer(input_path, Fs)
     VIBE_SYNC = syncStructs{5};
     
     %% SALVATAGGIO
+    Data.Time = time_sync;
     
     Data.IMU.GYR = IMU_SYNC.GYR;
     Data.IMU.ACC = IMU_SYNC.ACC;
