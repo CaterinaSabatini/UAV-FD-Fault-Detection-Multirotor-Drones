@@ -1,5 +1,5 @@
 [featureTable,ranking,outputTable] = diagnosticFeatures(dataTable);
-%save('UAV_features_complete.mat', 'featureTable', 'ranking', 'outputTable');
+save('UAV_features_complete_binary.mat', 'featureTable', 'ranking', 'outputTable');
 
 %% Pulizia delle Features con rimozione dei NaN
 
@@ -43,7 +43,7 @@ featureTable_Train=featureTable(idx_train,:);
 featureTable_Test=featureTable(idx_test,:);
 
 %% Salvataggio dati
-save('UAV_features_final.mat', 'ranking', 'featureTable', 'featureTable_Train', 'featureTable_Test');
+save('UAV_features_final_binary.mat', 'ranking', 'featureTable', 'featureTable_Train', 'featureTable_Test');
 
 %% Avvio classificationLearner
 classificationLearner(featureTable_Train,'faultCode');
