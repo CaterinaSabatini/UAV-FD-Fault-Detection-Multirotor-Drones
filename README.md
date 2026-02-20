@@ -1,6 +1,6 @@
 <h1 align="center">UAV Fault Detection Multirotor Drones</h1>
 
-## Table of Contents 📚 <a name="table-of-contents"></a>
+## Table of Contents <a name="table-of-contents"></a>
 
 1. [**Project Overview**](#projectoverview)
 
@@ -60,7 +60,7 @@ To run the code, the following software is required:
 - **Diagnostic Feature Designer** (MATLAB toolbox)
 - **Classification Learner** (MATLAB toolbox)
 
-**NOTE**: The dataset used in this project is available in the paper (see the link on page 1).
+**NOTE**: The dataset used in this project is available in the paper [UAV-FD](documents/UAV-FD.pdf) (see the link on page 1).
 
 ## 4. **Usage** <a name="usage"></a>
 1. **Import the dataset**  
@@ -90,7 +90,7 @@ To run the code, the following software is required:
 6. **Explainability**  
 For analyzing feature importance and model interpretability, you can use the **Explain** section of MATLAB’s **Classification Learner** tool.
 
-**NOTE**: For detailed results and analysis, refer to the project report `Relazione_Progetto.m`. 
+**NOTE**: For detailed results and analysis, refer to the [project report](documents/Relazione_Progetto.pdf). 
 
 ## 5 . **Legal** <a name="legal"></a>
 ### **Credits** <a name="credits"></a>
