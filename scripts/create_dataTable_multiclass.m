@@ -1,17 +1,17 @@
-%% CREATE DATASET - Costruzione DataTable Unica per Training
+%% CREATE DATASET - Costruzione DataTable unica per estrazione delle feature
 clear; clc;
 
-fprintf('\n=== CREAZIONE DATASET UNICO ===\n\n');
+fprintf('\nCREAZIONE DATASET UNICO\n');
 
 %% CONFIGURAZIONE
-Fs = 350;  % Hz
+Fs = 350;  % Frequenza di campionamento a 350 Hz
 
 % Percorsi
 script_folder = fileparts(mfilename('fullpath'));
 project_folder = fileparts(script_folder);
 sync_folder = fullfile(project_folder, 'synchronized_data');
 
-% DEBUG: Stampa percorsi
+% Debug: Stampa percorsi
 fprintf('Script folder: %s\n', script_folder);
 fprintf('Project folder: %s\n', project_folder);
 fprintf('Sync folder: %s\n\n', sync_folder);
@@ -20,8 +20,8 @@ fprintf('Sync folder: %s\n\n', sync_folder);
 
 file_patterns = {
     'NO_FAULT*_sync.mat', 0;      % 6 file normali
-    'FAULT_M*_5_sync.mat', 1;    % 6 file fault 5%
-    'FAULT_M*_10_sync.mat', 1;  % 6 file fault 10%
+    'FAULT_M*_5_sync.mat', 5;    % 6 file fault 5%
+    'FAULT_M*_10_sync.mat', 10;  % 6 file fault 10%
 };
 
 % Trova i file
@@ -52,13 +52,13 @@ dataTable = table('Size', [nFiles 0]);
 fprintf('Caricamento dati:\n');
 for i = 1:nFiles
     [~, filename, ~] = fileparts(all_files{i});
-    fprintf('  [%2d/%2d] %s (Fault: %d%)\n', i, nFiles, filename, fault_codes(i));
+    fprintf('  [%2d/%2d] %s (Fault: %d%%)\n', i, nFiles, filename, fault_codes(i));
     
     % Carica file
     data = load(all_files{i});
     data = data.Data;  % Estrai struct Data
     
-    % ESTRAZIONE VARIABILI
+    % Esrazione delle variabili
     acc_x = data.IMU.GYR(:,1);
     acc_y = data.IMU.GYR(:,2);
     acc_z = data.IMU.GYR(:,3);
@@ -102,7 +102,7 @@ for i = 1:nFiles
     vibe_y = data.VIBE.ACC(:,2);
     vibe_z = data.VIBE.ACC(:,3);
     
-    % CONVERSIONE A TIMETABLE
+    % Conversione a timetable
     dataTable.acc_x(i) = {array2timetable(acc_x, 'SampleRate', Fs)};
     dataTable.acc_y(i) = {array2timetable(acc_y, 'SampleRate', Fs)};
     dataTable.acc_z(i) = {array2timetable(acc_z, 'SampleRate', Fs)};
@@ -147,6 +147,6 @@ for i = 1:nFiles
     dataTable.vibe_z(i) = {array2timetable(vibe_z, 'SampleRate', Fs)};
 end
 
-%% AGGIUNGI FAULT CODES
+%% AGGIUNTA DEI FAULT CODES
 dataTable.faultCode = categorical(fault_codes');
 

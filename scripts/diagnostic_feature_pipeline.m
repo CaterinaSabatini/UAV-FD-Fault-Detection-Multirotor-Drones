@@ -1,7 +1,13 @@
-[featureTable,ranking,outputTable] = diagnosticFeatures(dataTable);
-save('UAV_features_complete_binary.mat', 'featureTable', 'ranking', 'outputTable');
+%% CHIAMATA DELLA FUNZIONE CHE ESTRAE LE FEATURE
 
-%% Pulizia delle Features con rimozione dei NaN
+[featureTable,ranking,outputTable] = diagnosticFeatures(dataTable);
+save('UAV_features_binary.mat', 'featureTable', 'ranking', 'outputTable'); % Salvataggio su file
+
+% Cambiare il comando in base a quale analisi si vuole fare (binaria o multiclasse)
+
+%save('UAV_features_multiclass.mat', 'featureTable', 'ranking', 'outputTable');
+
+%% PULIZIA DELLE FEATURE CON RIMOZIONE DEI NAN
 
 fprintf('Feature totali: %d\n', width(featureTable) - 4);
 fprintf('Frame totali: %d\n', height(featureTable));
@@ -33,7 +39,8 @@ fprintf('Feature finali: %d\n', width(featureTable) - 4);
 fprintf('Frame finali: %d\n', height(featureTable));
 fprintf('NaN residui: %d\n', nansAfterFill);
 
-%% Divisione tra training e test dataset
+%% DIVISIONE TRA TRAINING E TEST SET
+
 rng(0)
 partition=cvpartition(featureTable.EnsembleID_,'Holdout',0.3,'Stratify',true);
 idx_train = training(partition);
@@ -42,8 +49,14 @@ idx_test = test(partition);
 featureTable_Train=featureTable(idx_train,:);
 featureTable_Test=featureTable(idx_test,:);
 
-%% Salvataggio dati
-save('UAV_features_final_binary.mat', 'ranking', 'featureTable', 'featureTable_Train', 'featureTable_Test');
+%% SALVATAGGIO DATI 
 
-%% Avvio classificationLearner
+save('UAV_finalDatasetSplitted_binary.mat', 'ranking', 'featureTable', 'featureTable_Train', 'featureTable_Test'); 
+
+% Cambiare il comando in base a quale analisi si vuole fare (binaria o multiclasse)
+
+% save('UAV_finalDatasetSplitted_multiclass.mat', 'ranking', 'featureTable','featureTable_Train', 'featureTable_Test');
+
+%% AVVIO DEL TOOLBOX CLASSIFICATION LEARNER
+
 classificationLearner(featureTable_Train,'faultCode');

@@ -29,7 +29,7 @@ for i = 1:n_files
     
     fprintf('[%2d/%2d] Processando: %s ... ', i, n_files, filename);
     
-    % CHIAMA LA FUNZIONE
+    % Chiama la funzione synchronizer
     Data = synchronizer(input_path, 350);
     
     fprintf('File salvato correttamente\n');
