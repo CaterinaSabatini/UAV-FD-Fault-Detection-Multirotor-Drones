@@ -50,7 +50,7 @@ function Data = synchronizer(input_path, Fs)
     
     %% TIME
     
-    ESC_all = {ESC_0, ESC_1, ESC_2, ESC_3, ESC_4, ESC_5}; % perchè ci sono 6 motori
+    ESC_all = {ESC_0, ESC_1, ESC_2, ESC_3, ESC_4, ESC_5}; 
     Time.IMU = seconds(IMU_0(1:size(IMU.GYR,1),2)/1e6);
     Time.PWM = seconds(RCOU(:,2)/1e6);
     Time.ATT = seconds(ATT(:,2)/1e6);

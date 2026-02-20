@@ -1,4 +1,4 @@
-%% CREATE DATASET - Costruzione DataTable unica per estrazione delle feature
+%% CREATE DATATABLE - Costruzione DataTable unica per estrazione delle feature
 clear; clc;
 
 fprintf('\nCREAZIONE DATASET UNICO\n');
